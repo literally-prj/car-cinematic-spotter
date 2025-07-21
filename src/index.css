@@ -2,41 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Cinematic Car Recognition App - Design System */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Cinematic Color Palette - Dark theme inspired */
+    --background: 222 84% 4%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 222 84% 6%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 222 84% 6%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Electric Blue Primary */
+    --primary: 214 100% 60%;
+    --primary-foreground: 222 84% 4%;
+    --primary-glow: 214 100% 70%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Deep Purple Secondary */
+    --secondary: 264 83% 35%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 222 84% 8%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 264 83% 35%;
+    --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 222 84% 12%;
+    --input: 222 84% 12%;
+    --ring: 214 100% 60%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
+
+    /* Cinematic Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(214 100% 60%), hsl(264 83% 50%));
+    --gradient-secondary: linear-gradient(135deg, hsl(264 83% 35%), hsl(286 83% 45%));
+    --gradient-background: linear-gradient(180deg, hsl(222 84% 4%), hsl(222 84% 6%));
+    --gradient-card: linear-gradient(135deg, hsl(222 84% 6% / 0.8), hsl(222 84% 8% / 0.6));
+    --gradient-glass: linear-gradient(135deg, hsl(210 40% 98% / 0.1), hsl(210 40% 98% / 0.05));
+
+    /* Cinematic Shadows */
+    --shadow-primary: 0 0 40px hsl(214 100% 60% / 0.3);
+    --shadow-secondary: 0 0 30px hsl(264 83% 35% / 0.2);
+    --shadow-card: 0 20px 40px hsl(222 84% 2% / 0.5);
+    --shadow-glass: 0 8px 32px hsl(222 84% 2% / 0.4);
+
+    /* Animation Variables */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --backdrop-blur: blur(20px);
+
+    /* Spacing & Sizing */
+    --nav-height: 5rem;
+    --content-max-width: 1200px;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +125,118 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+    background: var(--gradient-background);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary));
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary-glow));
+  }
+}
+
+@layer components {
+  /* Glassmorphism Effect */
+  .glass {
+    @apply backdrop-blur-xl border border-white/10;
+    background: var(--gradient-glass);
+  }
+
+  /* Primary Gradient Button */
+  .btn-primary {
+    @apply relative overflow-hidden rounded-2xl px-8 py-4 font-semibold text-primary-foreground transition-all duration-300;
+    background: var(--gradient-primary);
+    box-shadow: var(--shadow-primary);
+  }
+
+  .btn-primary:hover {
+    @apply scale-105;
+    box-shadow: var(--shadow-primary), 0 8px 25px hsl(214 100% 60% / 0.4);
+  }
+
+  .btn-primary:active {
+    @apply scale-95;
+  }
+
+  /* Secondary Gradient Button */
+  .btn-secondary {
+    @apply relative overflow-hidden rounded-2xl px-8 py-4 font-semibold text-secondary-foreground transition-all duration-300;
+    background: var(--gradient-secondary);
+    box-shadow: var(--shadow-secondary);
+  }
+
+  .btn-secondary:hover {
+    @apply scale-105;
+  }
+
+  /* Glass Card */
+  .card-glass {
+    @apply glass rounded-3xl p-6 transition-all duration-300;
+    box-shadow: var(--shadow-glass);
+  }
+
+  .card-glass:hover {
+    @apply scale-[1.02];
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Floating Action Button */
+  .fab {
+    @apply fixed bottom-6 right-6 h-16 w-16 rounded-full shadow-2xl transition-all duration-300 z-50;
+    background: var(--gradient-primary);
+    box-shadow: var(--shadow-primary);
+  }
+
+  .fab:hover {
+    @apply scale-110;
+  }
+
+  /* Animated Underline */
+  .link-animated {
+    @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
+  }
+
+  /* Pulse Animation */
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes pulse-glow {
+    from {
+      box-shadow: 0 0 20px hsl(214 100% 60% / 0.4);
+    }
+    to {
+      box-shadow: 0 0 40px hsl(214 100% 60% / 0.8), 0 0 60px hsl(214 100% 60% / 0.4);
+    }
+  }
+
+  /* Scan Animation */
+  .scan-line {
+    animation: scan 2s ease-in-out infinite;
+  }
+
+  @keyframes scan {
+    0%, 100% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    50% {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 }
