@@ -1,12 +1,7 @@
-import Hero from '@/components/Hero';
-import Layout from '@/components/Layout';
+import Spots from './Spots';
 
 const Index = () => {
-  return (
-    <Layout>
-      <Hero />
-    </Layout>
-  );
+  return <Spots />;
 };
 
 export default Index;
